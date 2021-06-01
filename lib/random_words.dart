@@ -16,6 +16,9 @@ class _RandomWordsState extends State<RandomWords> {
     return Scaffold (
       appBar: AppBar(
         title: Text('Começando com Gerador de Nomes'),
+        actions: [
+          IconButton(onPressed: _pushSaved, icon: Icon(Icons.list))
+        ],
       ),
       body: _buildSuggestions(),
     );
@@ -59,4 +62,35 @@ class _RandomWordsState extends State<RandomWords> {
       },
     );
   }
+
+  void _pushSaved() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          final tiles = _saved.map(
+                (WordPair pair) {
+              return ListTile(
+                title: Text(
+                  pair.asPascalCase,
+                  style: _biggerFont,
+                ),
+              );
+            },
+          );
+          final divided = ListTile.divideTiles(
+            context: context,
+            tiles: tiles,
+          ).toList();
+
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Saved Suggestions'),
+            ),
+            body: ListView(children: divided),
+          );
+        },
+      ),
+    );
+  }
+
 }
