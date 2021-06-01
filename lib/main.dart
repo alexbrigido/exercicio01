@@ -9,7 +9,10 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'Começando com Gerador de Nomes',
-      home: RandomWords()
+      theme: ThemeData(
+        primaryColor: Colors.white
+      ),
+      home: RandomWords(),
     );
   }
 }
